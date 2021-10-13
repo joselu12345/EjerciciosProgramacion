@@ -11,7 +11,7 @@ public static  void main (String [] args) {
 		
 		for (int i = 0; i < 4; i++) {
 			
-			str = JOptionPane.showInputDialog("Introduce un numero entero");
+			str = JOptionPane.showInputDialog("Introduce un numero entero 2");
 			var1 = Integer.parseInt(str);
 			
 			if (var1 > 10)
