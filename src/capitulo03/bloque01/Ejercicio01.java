@@ -15,7 +15,7 @@ public static  void main (String [] args) {
 			var1 = Integer.parseInt(str);
 			
 			if (var1 > 10)
-				suma = var1 + suma;		
+				suma = var1 + suma;		//suma += var1;
 			
 		}
 		System.out.println("la suma de numeros mayores que 10 es: " + suma);

@@ -7,10 +7,10 @@ public class Ejercicio01 {
 	public static void main(String[] args) {
 
 		String str;
-		int var1 = 0, var2 , suma = 0;
+		int var1 = 0, var2 , suma = 0;  
 		
-		str = JOptionPane.showInputDialog("¿Cuantos numeros desea introducir?");
-		var2 = Integer.parseInt(str);
+		str = JOptionPane.showInputDialog("ï¿½Cuantos numeros desea introducir?");
+		var2 = Integer.parseInt(str);  
 
 		for (int i = 0; i < var2; i++) {
 
