@@ -26,7 +26,6 @@ public class Ejercicio01 {
 		}
 		
 		System.out.println("la suma de los numeros introducidos es: " + suma + " y la media es: " + media);
-		
 	}
 
 }
