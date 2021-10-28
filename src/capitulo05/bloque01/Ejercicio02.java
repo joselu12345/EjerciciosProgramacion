@@ -7,7 +7,7 @@ public class Ejercicio02 {
 	public static void main(String[] args) {
 		
 		int array[] = new int[150];
-		int limSuperior = 50, limInferior = 20;
+		int limSuperior = 0, limInferior = 0;
 		String str;
 		
 		str = JOptionPane.showInputDialog("Introduce un limite superior");
@@ -23,9 +23,7 @@ public class Ejercicio02 {
 
 			System.out.print(array[i] + " ");
 			
-			
 		}	
-		
 
 	}
 

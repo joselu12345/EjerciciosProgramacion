@@ -11,7 +11,6 @@ public class Ejercicio01 {
 		
 		System.out.print("el array creado es: \n");
 		
-		
 		for (int i = 0; i < array.length; i++) {
 			array[i] = (int) Math.round(Math.random() * 100);
 
