@@ -1,8 +1,8 @@
-package examenes.examen20211021.copy;
+package examenes.examen20211021;
 
 public class Ejercicio01 {
 	
-	public static void main (String[] args) {
+public static void main (String[] args) {
 		
 		//declaramos las variables y las inicializamos
 		
@@ -38,5 +38,6 @@ public class Ejercicio01 {
 		
 		
 	}
+
 
 }

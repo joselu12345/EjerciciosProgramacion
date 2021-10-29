@@ -1,4 +1,4 @@
-package examenes.examen20211021.copy;
+package examenes.examen20211021;
 
 public class Ejercicio04 {
 	
@@ -18,5 +18,6 @@ public static void main (String[] args) {
 		}		
 		
 	}
+
 
 }

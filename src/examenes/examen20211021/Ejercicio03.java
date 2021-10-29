@@ -1,7 +1,7 @@
-package examenes.examen20211021.copy;
+package examenes.examen20211021;
 
 public class Ejercicio03 {
-
+	
 	public static void main(String[] args) {
 
 		//declaramos las variables 
@@ -25,5 +25,6 @@ public class Ejercicio03 {
 		
 				
 	}
+
 
 }
