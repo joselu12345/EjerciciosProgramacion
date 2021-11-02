@@ -4,7 +4,7 @@ public class Ejercicio01 {
 	
 	public static void main (String[] args) {
 		
-		int array[] = new int[15];
+		int array[] = new int[150];
 		
 		System.out.println("El array creado es:");
 		
@@ -13,30 +13,25 @@ public class Ejercicio01 {
 			System.out.print(array[i] + " ");
 			
 		}
-		int iteracion = 0;
-		boolean permutacion;
+		int i, j, aux;		
 		
 		System.out.println("\nEl array ordenado es: ");
 		
-		while (permutacion =  true) {
-			permutacion = false;
-			iteracion++;
-			for (int i = 0; i < (array.length - iteracion); i++) {
+		for ( i = 0; i < array.length - 1; i++) {
+			for (j = 0; j < (array.length - i - 1); j++) {
 				
-				if (array[i] < array[i + 1]) {
-					permutacion = true;
-					array[i] = array[i +1];
-				}
+				if (array[j + 1] < array[j]) {
+					aux = array[j + 1];
+					array[j + 1] = array[j];
+					array[j] = aux;
+				}				
 				
-				
-				
-			}
-			for (int i = 0; i < array.length; i++) {
-				System.out.print(array[i] + " ");
 			}
 			
 		}
-			
+		for ( i = 0; i < array.length; i++) {
+			System.out.print(array[i] + " ");
+		}
 		
 		
 	}
