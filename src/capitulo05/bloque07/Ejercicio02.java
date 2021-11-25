@@ -16,17 +16,18 @@ public class Ejercicio02 {
 		
 		int  array[] = new int [20];
 		
+		System.out.println("El array creado es: ");
 		for (int i = 0; i < array.length; i++) {
 			array[i] = (int)Math.round(Math.random() * 20);
-			System.out.println("Los valores del array son: " + array[i]);
+			System.out.print(array[i] + " ");
 		}
 		
 		
 		findAndReplace(array, numBuscado, numIntroducido);
 		
-		System.out.println("El nuevo array es:");
+		System.out.println("\nEl nuevo array es:");
 		for (int i = 0; i < array.length; i++) {
-			System.out.println("Los valores del array son son: " + array[i]);
+			System.out.print(array[i] + " ");
 		}
 	}
 
