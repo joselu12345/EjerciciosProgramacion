@@ -37,11 +37,12 @@ public class Ejercicio05 {
 
 		}
 		int arrayBorrado[] = new int[array.length - contador];
+		int k = 0;
 		for (int i = 0; i < arrayBorrado.length; i++) {
-			if (array[i] == numBorrado) {
-				i--;
-			} else {
-				arrayBorrado[i] = array[i];
+			if (array[i] != numBorrado) {
+			
+				arrayBorrado[k] = array[i];
+				k++;
 			}
 
 		}
