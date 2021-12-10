@@ -1,17 +1,17 @@
 package capitulo04.bloque01;
 
-public class Ejercicio01_cromoBaloncesto {
+public class Ejercicio00_cromoBaloncesto {
 		
 	private String nombre;
 	private int altura;
 	private int peso;
 	private float puntos;
 	
-	public Ejercicio01_cromoBaloncesto() {
+	public Ejercicio00_cromoBaloncesto() {
 		
 	}
 
-	public Ejercicio01_cromoBaloncesto(String nombre, int altura, int peso, float puntos) {
+	public Ejercicio00_cromoBaloncesto(String nombre, int altura, int peso, float puntos) {
 		
 		this.nombre = nombre;
 		this.altura = altura;
