@@ -11,65 +11,57 @@ public class Ejercicio01_MenuPersona {
 		String str;
 		int var;
 		
-		str = JOptionPane.showInputDialog("Menu Personas" + "\n0" + "\n1 - Derecha" + "\n2 - Izquierda");
+		str = JOptionPane.showInputDialog("Menu Personas" + "\n0 - Salir" + "\n1 - Introducir Datos" + "\n2 - Ver las personas introducidas, con todos sus datos");
 		var = Integer.parseInt(str);
 
-		/**
+		
 		 
 		switch(var) {
 		
+		case 0:
+			break;
+		
 		case 1:
-			str = JOptionPane.showInputDialog("�Cuantas posiciones desea desplazar el array?");
-			desDerecha = Integer.parseInt(str);
-
-			for (int j = 0; j < desDerecha; j++) {
-
-				int aux = array[array.length - 1];
-
-				for (int i = array.length - 1; i > 0; i--) {
-
-					array[i] = array[i - 1];
-				}
-
-				array[0] = aux;
-
-			}
 			
-			System.out.println("\nEl array desplazado a la derecha es: ");
-
-			for (int i = 0; i < array.length; i++) {
-				System.out.print(array[i] + " ");
+			System.out.println("Introduzca los datos: ");
+			
+			for (int i = 0; i < arrayPersonas.length; i++) {
+				if (arrayPersonas[i] == null) {
+					arrayPersonas[i] = new Ejercicio01_Persona();
+					
+					String nombre = JOptionPane.showInputDialog("Nombre: ");					
+					arrayPersonas[i].setNombre(nombre);
+					
+					String apellido = JOptionPane.showInputDialog("Apellido: ");					
+					arrayPersonas[i].setApellido(apellido);
+					
+					String dni = JOptionPane.showInputDialog("dni: ");					
+					arrayPersonas[i].setDni(dni);
+					
+					String direccion = JOptionPane.showInputDialog("direccion: ");					
+					arrayPersonas[i].setDireccion(direccion);
+					
+					String telefono = JOptionPane.showInputDialog("telefono: ");					
+					arrayPersonas[i].setTelefono(telefono);
+				}
 			}
+					
 			break;
 		
 		case 2:
-			str = JOptionPane.showInputDialog("�Cuantas posiciones desea desplazar el array?");
-			desIzquierda = Integer.parseInt(str);
+			System.out.println("Mostrar datos: ");
 			
-			for (int j = 0; j < desIzquierda; j++) {
-
-				int aux = array[0];
-
-				for (int i = 1; i < array.length; i++) {
-
-					array[i - 1] = array[i];
-				}
-
-				array[array.length - 1] = aux;
+			for (int i = 0 ; i < arrayPersonas.length; i++) {
+				System.out.println(arrayPersonas[i].toString());
 			}
 			
-			System.out.println("\nEl array desplazado a la izquierda es: ");
-
-			for (int i = 0; i < array.length; i++) {
-				System.out.print(array[i] + " ");
-			}
 			break;
 		
 		default:
 			System.out.println("\nLa variable introducida no es valida");
 			
 		}
-		*/
+		
 		
 	}
 
