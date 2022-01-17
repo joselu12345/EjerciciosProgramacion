@@ -2,9 +2,9 @@ package capitulo04.bloque02Herencia.articulosComestibles;
 
 public class Articulo {
 
-		private String nombre;
-		private String codigo;
-		private double precio;
+		protected String nombre;
+		protected String codigo;
+		protected double precio;
 
 		public Articulo() {
 			super();
