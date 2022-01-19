@@ -15,8 +15,7 @@ public class Tienda {
 
 		do {
 
-			str = JOptionPane.showInputDialog("Introduce un articulo" + "\n0 - Salir" + "\n1 - Introducir Datos"
-					+ "\n2 - Ver las articulos");
+			str = JOptionPane.showInputDialog("¿Que quiere hacer?" + "\n0 - Salir" + "\n1 - Introducir articulo" + "\n2 - Ver las articulos");
 			var = Integer.parseInt(str);
 
 			switch (var) {
@@ -28,7 +27,7 @@ public class Tienda {
 				
 				for (int i = 0; i < arrayArticulos.length; i++) {
 				
-				str = JOptionPane.showInputDialog("Â¿Que tipo de articulo es?" + "\n1 - Perecedero" + "\n2 - No perecedero");
+				str = JOptionPane.showInputDialog("¿Que tipo de articulo es?" + "\n1 - Perecedero" + "\n2 - No perecedero");
 				var1 = Integer.parseInt(str);
 				
 				switch (var1) {
@@ -76,11 +75,14 @@ public class Tienda {
 						}
 					
 					break;
+					
+					default:
+						System.out.println("\nLa variable introducida no es valida");
 				}	
-				break;
+				
 				
 			}
-			
+			break;
 
 			case 2:
 				System.out.println("Mostrar datos: ");
@@ -99,11 +101,6 @@ public class Tienda {
 			}
 
 		} while (var != 0);
-
-	
-
-
-
 
 	}
 

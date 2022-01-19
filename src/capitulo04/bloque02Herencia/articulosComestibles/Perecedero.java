@@ -26,7 +26,7 @@ public class Perecedero extends Articulo {
 
 	@Override
 	public String toString() {
-		return "Perecedero [fechaCaducidad=" + fechaCaducidad + "]";
+		return "Perecedero [nombre=" + nombre + ", codigo=" + codigo + ", precio=" + precio + ", fechaCaducidad=" + fechaCaducidad + "]";
 	}
 	
 	
