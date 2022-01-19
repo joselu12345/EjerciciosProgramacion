@@ -2,28 +2,28 @@ package capitulo04.bloque02Herencia.coleccionAntiguedades;
 
 public class Mueble extends Antiguedad{
 	
-	protected String tamaño;
+	protected String tamanio;
 
 	public Mueble() {
 		super();
 	}
 
-	public Mueble(String añoFabricacion, String origen, double precio, String tamaño) {
-		super(añoFabricacion, origen, precio);
-		this.tamaño = tamaño;
+	public Mueble(String anioFabricacion, String origen, double precio, String tamaÃ±o) {
+		super(anioFabricacion, origen, precio);
+		this.tamanio = tamaÃ±o;
 	}
 
-	public String getTamaño() {
-		return tamaño;
+	public String getTamaÃ±o() {
+		return tamanio;
 	}
 
-	public void setTamaño(String tamaño) {
-		this.tamaño = tamaño;
+	public void setTamaÃ±o(String tamaÃ±o) {
+		this.tamanio = tamaÃ±o;
 	}
 
 	@Override
 	public String toString() {
-		return "Mueble [tamaño=" + tamaño + ", añoFabricacion=" + añoFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
+		return "Mueble [tamaï¿½o=" + tamanio + ", aï¿½oFabricacion=" + anioFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
 	}
 	
 	

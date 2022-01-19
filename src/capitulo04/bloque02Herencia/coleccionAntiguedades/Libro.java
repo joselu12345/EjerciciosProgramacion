@@ -8,8 +8,8 @@ public class Libro extends Antiguedad {
 		super();
 	}
 
-	public Libro(String añoFabricacion, String origen, double precio, String autor) {
-		super(añoFabricacion, origen, precio);
+	public Libro(String anioFabricacion, String origen, double precio, String autor) {
+		super(anioFabricacion, origen, precio);
 		this.autor = autor;
 	}
 
@@ -23,7 +23,7 @@ public class Libro extends Antiguedad {
 
 	@Override
 	public String toString() {
-		return "Libro [autor=" + autor + ", añoFabricacion=" + añoFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
+		return "Libro [autor=" + autor + ", aï¿½oFabricacion=" + anioFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
 	}
 
 	

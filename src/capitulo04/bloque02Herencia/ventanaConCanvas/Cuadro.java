@@ -2,6 +2,7 @@ package capitulo04.bloque02Herencia.ventanaConCanvas;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
+import java.awt.GraphicsConfiguration;
 
 public class Cuadro {
 

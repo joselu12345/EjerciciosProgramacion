@@ -8,8 +8,8 @@ public class Joya extends Antiguedad {
 		super();
 	}
 
-	public Joya(String añoFabricacion, String origen, double precio, String metalFabricacion) {
-		super(añoFabricacion, origen, precio);
+	public Joya(String anioFabricacion, String origen, double precio, String metalFabricacion) {
+		super(anioFabricacion, origen, precio);
 		this.metalFabricacion = metalFabricacion;
 	}
 
@@ -23,7 +23,7 @@ public class Joya extends Antiguedad {
 
 	@Override
 	public String toString() {
-		return "Joya [metalFabricacion=" + metalFabricacion + ", añoFabricacion=" + añoFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
+		return "Joya [metalFabricacion=" + metalFabricacion + ", aï¿½oFabricacion=" + anioFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
 	}
 
 	

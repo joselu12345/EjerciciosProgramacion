@@ -8,8 +8,8 @@ public class Coche extends Antiguedad {
 		super();
 	}
 
-	public Coche(String añoFabricacion, String origen, double precio, String marca) {
-		super(añoFabricacion, origen, precio);
+	public Coche(String anioFabricacion, String origen, double precio, String marca) {
+		super(anioFabricacion, origen, precio);
 		this.marca = marca;
 	}
 
@@ -23,7 +23,7 @@ public class Coche extends Antiguedad {
 
 	@Override
 	public String toString() {
-		return "Coche [marca=" + marca + ", añoFabricacion=" + añoFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
+		return "Coche [marca=" + marca + ", aï¿½oFabricacion=" + anioFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
 	}
 	
 	

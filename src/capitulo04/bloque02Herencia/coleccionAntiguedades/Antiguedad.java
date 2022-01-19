@@ -2,7 +2,7 @@ package capitulo04.bloque02Herencia.coleccionAntiguedades;
 
 public class Antiguedad {
 	
-	protected String añoFabricacion;
+	protected String anioFabricacion;
 	protected String origen;
 	protected double precio;
 	
@@ -10,19 +10,19 @@ public class Antiguedad {
 		super();
 	}
 
-	public Antiguedad(String añoFabricacion, String origen, double precio) {
+	public Antiguedad(String anioFabricacion, String origen, double precio) {
 		super();
-		this.añoFabricacion = añoFabricacion;
+		this.anioFabricacion = anioFabricacion;
 		this.origen = origen;
 		this.precio = precio;
 	}
 
-	public String getAñoFabricacion() {
-		return añoFabricacion;
+	public String getAnioFabricacion() {
+		return anioFabricacion;
 	}
 
-	public void setAñoFabricacion(String añoFabricacion) {
-		this.añoFabricacion = añoFabricacion;
+	public void setAnioFabricacion(String anioFabricacion) {
+		this.anioFabricacion = anioFabricacion;
 	}
 
 	public String getOrigen() {
@@ -43,7 +43,7 @@ public class Antiguedad {
 
 	@Override
 	public String toString() {
-		return "Antiguedad [añoFabricacion=" + añoFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
+		return "Antiguedad [aï¿½oFabricacion=" + anioFabricacion + ", origen=" + origen + ", precio=" + precio + "]";
 	}
 	
 	
