@@ -4,9 +4,9 @@ public class Partida {
 
 	public static void main(String[] args) {
 		
-		//CampoBatalla.getInstance().mezclaArray(CampoBatalla.getInstance()getArrayHumano());
-		//CampoBatalla.getInstance().mezclaArray(CampoBatalla.getInstance()getArrayMalvado());
-		//CampoBatalla.getInstance().batalla();
+		CampoBatalla.getInstance().mezclarArray(CampoBatalla.getInstance().getArrayHumano());
+		CampoBatalla.getInstance().mezclarArray(CampoBatalla.getInstance().getArrayMalvado());
+		CampoBatalla.getInstance().batalla();
 
 	}
 

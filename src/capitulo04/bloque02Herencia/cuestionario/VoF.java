@@ -2,13 +2,13 @@ package capitulo04.bloque02Herencia.cuestionario;
 
 public class VoF extends Pregunta {
 	
-	protected Boolean respuesta;
+	protected boolean respuesta;
 
 	public VoF() {
 		super();
 	}
 
-	public VoF(String enunciado, Boolean respuesta) {
+	public VoF(String enunciado, boolean respuesta) {
 		super(enunciado);
 		this.respuesta = respuesta;
 	}
@@ -22,11 +22,11 @@ public class VoF extends Pregunta {
 		}
 	}
 
-	public Boolean getRespuesta() {
+	public boolean getRespuesta() {
 		return respuesta;
 	}
 
-	public void setRespuesta(Boolean respuesta) {
+	public void setRespuesta(boolean respuesta) {
 		this.respuesta = respuesta;
 	}
 
