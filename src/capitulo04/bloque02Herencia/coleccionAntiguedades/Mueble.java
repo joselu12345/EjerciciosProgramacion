@@ -8,17 +8,17 @@ public class Mueble extends Antiguedad{
 		super();
 	}
 
-	public Mueble(String anioFabricacion, String origen, double precio, String tamaño) {
+	public Mueble(String anioFabricacion, String origen, double precio, String tamanio) {
 		super(anioFabricacion, origen, precio);
-		this.tamanio = tamaño;
+		this.tamanio = tamanio;
 	}
 
-	public String getTamaño() {
+	public String getTamanio() {
 		return tamanio;
 	}
 
-	public void setTamaño(String tamaño) {
-		this.tamanio = tamaño;
+	public void setTamanio(String tamanio) {
+		this.tamanio = tamanio;
 	}
 
 	@Override

@@ -12,7 +12,7 @@ public class ColeccionAntiguedades {
 		
 		do {
 			
-			str = JOptionPane.showInputDialog("�Que desea hacer?" 
+			str = JOptionPane.showInputDialog("�Que desea hacer?" 
 													+ "\n0 - Salir" 
 													+ "\n1 - Introducir antiguedad"
 													+ "\n2 - Mostrar antiguedades");
@@ -27,7 +27,7 @@ public class ColeccionAntiguedades {
 					
 					for (int i = 0; i < arrayAntiguedad.length; i++) {
 						
-						str = JOptionPane.showInputDialog("�Que tipo de antiguedad es?" 
+						str = JOptionPane.showInputDialog("�Que tipo de antiguedad es?" 
 																+ "\n1 - Joya"
 																+ "\n2 - Libro"
 																+ "\n3 - Mueble"
@@ -45,8 +45,8 @@ public class ColeccionAntiguedades {
 								String metalFabricacion = JOptionPane.showInputDialog("Metal de Fabricacion: ");
 								((Joya)arrayAntiguedad[i]).setMetalFabricacion(metalFabricacion);
 								
-								String añoFabricacion = JOptionPane.showInputDialog("A�o de Fabricacion: ");
-								arrayAntiguedad[i].setAnioFabricacion(añoFabricacion);
+								String anioFabricacion = JOptionPane.showInputDialog("Anio de Fabricacion: ");
+								arrayAntiguedad[i].setAnioFabricacion(anioFabricacion);
 			
 								String origen = JOptionPane.showInputDialog("Origen: ");
 								arrayAntiguedad[i].setOrigen(origen);
@@ -65,8 +65,8 @@ public class ColeccionAntiguedades {
 								String autor = JOptionPane.showInputDialog("Autor: ");
 								((Libro)arrayAntiguedad[i]).setAutor(autor);
 								
-								String añoFabricacion = JOptionPane.showInputDialog("A�o de Fabricacion: ");
-								arrayAntiguedad[i].setAnioFabricacion(añoFabricacion);
+								String anioFabricacion = JOptionPane.showInputDialog("Anio de Fabricacion: ");
+								arrayAntiguedad[i].setAnioFabricacion(anioFabricacion);
 			
 								String origen = JOptionPane.showInputDialog("Origen: ");
 								arrayAntiguedad[i].setOrigen(origen);
@@ -83,11 +83,11 @@ public class ColeccionAntiguedades {
 							if (arrayAntiguedad[i] == null) {
 								arrayAntiguedad[i] = new Mueble();
 			
-								String tamaño = JOptionPane.showInputDialog("Tama�o: ");
-								((Mueble)arrayAntiguedad[i]).setTamaño(tamaño);
+								String tamanio = JOptionPane.showInputDialog("Tamanio: ");
+								((Mueble)arrayAntiguedad[i]).setTamanio(tamanio);
 								
-								String añoFabricacion = JOptionPane.showInputDialog("A�o de Fabricacion: ");
-								arrayAntiguedad[i].setAnioFabricacion(añoFabricacion);
+								String anioFabricacion = JOptionPane.showInputDialog("Anio de Fabricacion: ");
+								arrayAntiguedad[i].setAnioFabricacion(anioFabricacion);
 			
 								String origen = JOptionPane.showInputDialog("Origen: ");
 								arrayAntiguedad[i].setOrigen(origen);
@@ -106,8 +106,8 @@ public class ColeccionAntiguedades {
 								String marca = JOptionPane.showInputDialog("Marca del coche: ");
 								((Coche)arrayAntiguedad[i]).setMarca(marca);
 								
-								String añoFabricacion = JOptionPane.showInputDialog("A�o de Fabricacion: ");
-								arrayAntiguedad[i].setAnioFabricacion(añoFabricacion);
+								String anioFabricacion = JOptionPane.showInputDialog("Anio de Fabricacion: ");
+								arrayAntiguedad[i].setAnioFabricacion(anioFabricacion);
 			
 								String origen = JOptionPane.showInputDialog("Origen: ");
 								arrayAntiguedad[i].setOrigen(origen);
