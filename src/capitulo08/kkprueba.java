@@ -2,7 +2,6 @@ package capitulo08;
 
 import java.awt.EventQueue;
 
-//comit
 import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
