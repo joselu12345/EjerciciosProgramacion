@@ -22,6 +22,10 @@ public class kkprueba {
 	private JButton button_1;
 	private JButton button_2;
 	private JButton button_3;
+	private JPanel panel_1;
+	private JButton btnNuevo;
+	private JButton btnGuardar;
+	private JButton btnEliminar;
 
 	/**
 	 * Launch the application.
@@ -55,9 +59,9 @@ public class kkprueba {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblId = new JLabel("ID:");
@@ -113,6 +117,7 @@ public class kkprueba {
 		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
 		gbc_panel.gridwidth = 3;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
@@ -130,6 +135,23 @@ public class kkprueba {
 		
 		button_3 = new JButton(">>");
 		panel.add(button_3);
+		
+		panel_1 = new JPanel();
+		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.gridwidth = 3;
+		gbc_panel_1.fill = GridBagConstraints.BOTH;
+		gbc_panel_1.gridx = 0;
+		gbc_panel_1.gridy = 5;
+		frame.getContentPane().add(panel_1, gbc_panel_1);
+		
+		btnNuevo = new JButton("Nuevo");
+		panel_1.add(btnNuevo);
+		
+		btnGuardar = new JButton("Guardar");
+		panel_1.add(btnGuardar);
+		
+		btnEliminar = new JButton("Eliminar");
+		panel_1.add(btnEliminar);
 	}
 
 }

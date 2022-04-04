@@ -38,7 +38,7 @@ public class ConnectionManagerV1 {
 		try {
 			Class.forName(driver);
 		   
-			conexion = (Connection) DriverManager.getConnection ("jdbc:mysql://" + host + "/" + schema + properties, user, password);			   
+			conexion = (Connection) DriverManager.getConnection ("jdbc:mysql://" , "root", password);			   
 		}
 		catch (ClassNotFoundException ex) {
 			System.out.println("Imposible acceder al driver Mysql");
