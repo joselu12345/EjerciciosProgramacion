@@ -26,6 +26,7 @@ public class kkprueba {
 	private JButton btnNuevo;
 	private JButton btnGuardar;
 	private JButton btnEliminar;
+	private JTextField txtGestionFabricantes;
 
 	/**
 	 * Launch the application.
@@ -63,6 +64,16 @@ public class kkprueba {
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
+		
+		txtGestionFabricantes = new JTextField();
+		txtGestionFabricantes.setText("Gestion Fabricantes");
+		GridBagConstraints gbc_txtGestionFabricantes = new GridBagConstraints();
+		gbc_txtGestionFabricantes.gridwidth = 3;
+		gbc_txtGestionFabricantes.insets = new Insets(0, 0, 5, 0);
+		gbc_txtGestionFabricantes.gridx = 0;
+		gbc_txtGestionFabricantes.gridy = 0;
+		frame.getContentPane().add(txtGestionFabricantes, gbc_txtGestionFabricantes);
+		txtGestionFabricantes.setColumns(10);
 		
 		JLabel lblId = new JLabel("ID:");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
