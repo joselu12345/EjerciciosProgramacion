@@ -1,4 +1,4 @@
-package capitulo08;
+package capitulo08.ejercicio1;
 
 import java.awt.EventQueue;
 
