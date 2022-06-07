@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
@@ -29,13 +30,16 @@ public class Principal extends JFrame {
 	private JTextField jtfSaldo;
 	private JTextField jtfLimite;
 	private JTextField jtfIdTipoContrato;
-	private JTextField jtdIdUsuario;
+	private JTextField jtfIdUsuario;
 	private JPanel panel;
 	private JButton btnPrimero;
 	private JButton btnAnterior;
 	private JButton btnSiguiente;
 	private JButton btnUltimo;
 	private JButton btnModificar;
+	private JButton btnNuevo;
+	private JButton btnEliminar;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -166,19 +170,27 @@ public class Principal extends JFrame {
 		gbc_lblNewLabel_5.gridy = 5;
 		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
-		jtdIdUsuario = new JTextField();
+		jtfIdUsuario = new JTextField();
 		GridBagConstraints gbc_jtdIdUsuario = new GridBagConstraints();
 		gbc_jtdIdUsuario.insets = new Insets(0, 0, 5, 0);
 		gbc_jtdIdUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtdIdUsuario.gridx = 1;
 		gbc_jtdIdUsuario.gridy = 5;
-		contentPane.add(jtdIdUsuario, gbc_jtdIdUsuario);
-		jtdIdUsuario.setColumns(10);
+		contentPane.add(jtfIdUsuario, gbc_jtdIdUsuario);
+		jtfIdUsuario.setColumns(10);
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 1;
+		gbc_textField.gridy = 5;
+		contentPane.add(textField, gbc_textField);
+		textField.setColumns(10);
 		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
 		gbc_panel.gridy = 6;
@@ -224,14 +236,45 @@ public class Principal extends JFrame {
 		});
 		panel.add(btnUltimo);
 		
-		btnModificar = new JButton("modificar");
+		btnModificar = new JButton("guardar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				modificarContrato();
+			Contrato con = new Contrato();
+			con.setDescripcion(jtfDescripcion.getText());
+			con.setId ( Integer.parseInt(jtfID.getText() ) );
+			con.setSaldo ( Float.parseFloat(jtfSaldo.getText()) );
+			con.setLimite ( Float.parseFloat(jtfLimite.getText()) );
+			con.setIdTipoContrato ( Integer.parseInt(jtfIdTipoContrato.getText()) );
+			con.setIdUsuario ( Integer.parseInt(jtfIdUsuario.getText()) );
+			
+			if (con.getId() == 0) {
+				nuevoContrato(con);
+			}
+			else {
+				modificarContrato(con);
+			}
+			
 			}
 		});
 		panel.add(btnModificar);
+		
+		btnNuevo = new JButton("nuevo");
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				jtfID.setText("0");
+				jtfDescripcion.setText("");
+				jtfSaldo.setText("");
+				jtfLimite.setText("");
+				jtfIdTipoContrato.setText("");
+				jtfIdUsuario.setText("");				
+			}
+		});
+		panel.add(btnNuevo);
+		
+		btnEliminar = new JButton("eliminar");
+		panel.add(btnEliminar);
 		
 		mostrarContrato();
 	}
@@ -244,7 +287,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
-		jtdIdUsuario.setText("" + con.getIdUsuario());
+		jtfIdUsuario.setText("" + con.getIdUsuario());
 		//System.out.println(con.getId() + " " + con.getDescripcion());
 		
 	}
@@ -257,7 +300,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
-		jtdIdUsuario.setText("" + con.getIdUsuario());
+		jtfIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
 	
@@ -269,7 +312,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
-		jtdIdUsuario.setText("" + con.getIdUsuario());
+		jtfIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
 	
@@ -281,7 +324,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
-		jtdIdUsuario.setText("" + con.getIdUsuario());
+		jtfIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
 	
@@ -359,11 +402,26 @@ public class Principal extends JFrame {
 			Statement s = ConnectionManager.getConexion().createStatement();
 			con.setId(siguienteIdEnTabla("contrato"));
 			registrosAfectados = s.executeUpdate(
-						"insert into contrato values (" + con.getId() + ",'" + con.getDescripcion() + "', '" + con.getSaldo() + ",'" + con.getLimite() + " ,'" + con.getIdTipoContrato() + " ,'" + con.getIdUsuario() + "')");
+						"insert into contrato values (" + con.getId() + ",'" + con.getDescripcion() + "', " + con.getSaldo() + "," + con.getLimite() + " ," + con.getIdTipoContrato() + " ," + con.getIdUsuario() + ")");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return registrosAfectados;
+	}
+	
+	protected static int siguienteIdEnTabla(String nombreTabla) {
+		try {
+			Statement s = ConnectionManager.getConexion().createStatement();
+			ResultSet rs = s.executeQuery("Select max(id) from " + nombreTabla);
+			
+			if (rs.next()) {
+				return rs.getInt(1) + 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return -1; 		
 	}
 
 
