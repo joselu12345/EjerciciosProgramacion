@@ -12,6 +12,8 @@ import clasesRecuperacion.modelo.Contrato;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
@@ -20,7 +22,9 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class Principal extends JFrame {
 
@@ -29,7 +33,6 @@ public class Principal extends JFrame {
 	private JTextField jtfDescripcion;
 	private JTextField jtfSaldo;
 	private JTextField jtfLimite;
-	private JTextField jtfIdTipoContrato;
 	private JTextField jtfIdUsuario;
 	private JPanel panel;
 	private JButton btnPrimero;
@@ -40,6 +43,7 @@ public class Principal extends JFrame {
 	private JButton btnNuevo;
 	private JButton btnEliminar;
 	private JTextField textField;
+	private JComboBox jcbTipoContrato;
 
 	/**
 	 * Launch the application.
@@ -153,14 +157,13 @@ public class Principal extends JFrame {
 		gbc_lblNewLabel_4.gridy = 4;
 		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		jtfIdTipoContrato = new JTextField();
-		GridBagConstraints gbc_jtfIdTipoContrato = new GridBagConstraints();
-		gbc_jtfIdTipoContrato.insets = new Insets(0, 0, 5, 0);
-		gbc_jtfIdTipoContrato.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jtfIdTipoContrato.gridx = 1;
-		gbc_jtfIdTipoContrato.gridy = 4;
-		contentPane.add(jtfIdTipoContrato, gbc_jtfIdTipoContrato);
-		jtfIdTipoContrato.setColumns(10);
+		jcbTipoContrato = new JComboBox();
+		GridBagConstraints gbc_jcbTipoContrato = new GridBagConstraints();
+		gbc_jcbTipoContrato.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbTipoContrato.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jcbTipoContrato.gridx = 1;
+		gbc_jcbTipoContrato.gridy = 4;
+		contentPane.add(jcbTipoContrato, gbc_jcbTipoContrato);
 		
 		JLabel lblNewLabel_5 = new JLabel("id usuario");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
@@ -245,7 +248,7 @@ public class Principal extends JFrame {
 			con.setId ( Integer.parseInt(jtfID.getText() ) );
 			con.setSaldo ( Float.parseFloat(jtfSaldo.getText()) );
 			con.setLimite ( Float.parseFloat(jtfLimite.getText()) );
-			con.setIdTipoContrato ( Integer.parseInt(jtfIdTipoContrato.getText()) );
+			con.setIdTipoContrato ( Integer.parseInt(jcbTipoContrato.getText()) );
 			con.setIdUsuario ( Integer.parseInt(jtfIdUsuario.getText()) );
 			
 			if (con.getId() == 0) {
@@ -267,13 +270,20 @@ public class Principal extends JFrame {
 				jtfDescripcion.setText("");
 				jtfSaldo.setText("");
 				jtfLimite.setText("");
-				jtfIdTipoContrato.setText("");
+				jcbTipoContrato.setText("");
 				jtfIdUsuario.setText("");				
 			}
 		});
 		panel.add(btnNuevo);
 		
 		btnEliminar = new JButton("eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				eliminarContrato(Integer.parseInt(jtfID.getText()));
+				
+			}
+		});
 		panel.add(btnEliminar);
 		
 		mostrarContrato();
@@ -286,7 +296,6 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
 		jtfIdUsuario.setText("" + con.getIdUsuario());
 		//System.out.println(con.getId() + " " + con.getDescripcion());
 		
@@ -299,7 +308,7 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
+		jcbTipoContrato.setText("" + con.getIdTipoContrato());
 		jtfIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
@@ -311,7 +320,7 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
+		jcbTipoContrato.setText("" + con.getIdTipoContrato());
 		jtfIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
@@ -323,7 +332,7 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jtfIdTipoContrato.setText("" + con.getIdTipoContrato());
+		jcbTipoContrato.setText("" + con.getIdTipoContrato());
 		jtfIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
@@ -382,13 +391,25 @@ public class Principal extends JFrame {
 		return registrosAfectados;		
 	}
 	
-	public static int eliminarContrato (int idEliminacion) {		
+	public static int eliminarContrato (int idEliminacion) {
 		int registrosAfectados = 0;
+		
+//		Scanner sc = new Scanner(System.in);
+//		int id = 0;
+//		
+//		System.out.println("Introduce id del contrato para su eliminación: ");
+//		id = sc.nextInt();
+//		
 		try {
 			Statement s = ConnectionManager.getConexion().createStatement();
 			
 			registrosAfectados = s.executeUpdate(
 					"delete from contrato where id=" + idEliminacion);
+			
+			//System.out.println("Se ha eliminado correctamente el contrato con id " + idEliminacion +" ");
+			
+			JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el contrato con id " + idEliminacion +" ");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
