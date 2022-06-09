@@ -7,26 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import clasesRecuperacion.ConnectionManager;
-import clasesRecuperacion.modelo.Usuario;
 
-public class controladorUsuario {
+import clasesRecuperacion.modelo.TipoContrato;
+
+public class controladorTipoContrato {
 	
-public static List<Usuario> findAll(){
+public static List<TipoContrato> findAll(){
 		
-		List<Usuario> lista = new ArrayList<Usuario>();
+		List<TipoContrato> lista = new ArrayList<TipoContrato>();
 		
-		Usuario u = null;
+		TipoContrato ticon = null;
 		
 		try {
 			
 			Statement s = (Statement) ConnectionManager.getConexion().createStatement(); 
 			
-			ResultSet rs = s.executeQuery ("select * from usuario");
+			ResultSet rs = s.executeQuery ("select * from tipocontrato");
 			
 			while (rs.next()) {
 				
-				u = new Usuario(rs.getInt("id"), rs.getString("nombreUsuario"), rs.getString("password"), rs.getString("email"), rs.getString("colorPreferido"));
-				lista.add(u);
+				ticon = new TipoContrato(rs.getInt("id"), rs.getString("descripcion"));
+				lista.add(ticon);
 			}
 			
 			rs.close();
@@ -41,6 +42,5 @@ public static List<Usuario> findAll(){
 		return lista;	
 		
 	}
-
 
 }

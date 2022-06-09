@@ -8,7 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import clasesRecuperacion.controladores.controladorContrato;
+import clasesRecuperacion.controladores.controladorTipoContrato;
+import clasesRecuperacion.controladores.controladorUsuario;
 import clasesRecuperacion.modelo.Contrato;
+import clasesRecuperacion.modelo.TipoContrato;
+import clasesRecuperacion.modelo.Usuario;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -22,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -33,7 +38,6 @@ public class Principal extends JFrame {
 	private JTextField jtfDescripcion;
 	private JTextField jtfSaldo;
 	private JTextField jtfLimite;
-	private JTextField jtfIdUsuario;
 	private JPanel panel;
 	private JButton btnPrimero;
 	private JButton btnAnterior;
@@ -42,8 +46,8 @@ public class Principal extends JFrame {
 	private JButton btnModificar;
 	private JButton btnNuevo;
 	private JButton btnEliminar;
-	private JTextField textField;
-	private JComboBox jcbTipoContrato;
+	private JComboBox<TipoContrato> jcbTipoContrato;
+	private JComboBox<Usuario> jcbIdUsuario;
 
 	/**
 	 * Launch the application.
@@ -157,7 +161,16 @@ public class Principal extends JFrame {
 		gbc_lblNewLabel_4.gridy = 4;
 		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
-		jcbTipoContrato = new JComboBox();
+		jcbTipoContrato = new JComboBox<TipoContrato>();
+		jcbTipoContrato.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				/////////////////////////
+			
+			}
+		});
+		
+		
 		GridBagConstraints gbc_jcbTipoContrato = new GridBagConstraints();
 		gbc_jcbTipoContrato.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbTipoContrato.fill = GridBagConstraints.HORIZONTAL;
@@ -173,23 +186,20 @@ public class Principal extends JFrame {
 		gbc_lblNewLabel_5.gridy = 5;
 		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
-		jtfIdUsuario = new JTextField();
-		GridBagConstraints gbc_jtdIdUsuario = new GridBagConstraints();
-		gbc_jtdIdUsuario.insets = new Insets(0, 0, 5, 0);
-		gbc_jtdIdUsuario.fill = GridBagConstraints.HORIZONTAL;
-		gbc_jtdIdUsuario.gridx = 1;
-		gbc_jtdIdUsuario.gridy = 5;
-		contentPane.add(jtfIdUsuario, gbc_jtdIdUsuario);
-		jtfIdUsuario.setColumns(10);
-		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 0);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 5;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		jcbIdUsuario = new JComboBox<Usuario>();
+		jcbIdUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				////////////////////////////		
+				
+			}
+		});
+		GridBagConstraints gbc_jcbIdUsuario = new GridBagConstraints();
+		gbc_jcbIdUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbIdUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jcbIdUsuario.gridx = 1;
+		gbc_jcbIdUsuario.gridy = 5;
+		contentPane.add(jcbIdUsuario, gbc_jcbIdUsuario);
 		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
@@ -249,7 +259,13 @@ public class Principal extends JFrame {
 			con.setSaldo ( Float.parseFloat(jtfSaldo.getText()) );
 			con.setLimite ( Float.parseFloat(jtfLimite.getText()) );
 			con.setIdTipoContrato ( Integer.parseInt(jcbTipoContrato.getText()) );
-			con.setIdUsuario ( Integer.parseInt(jtfIdUsuario.getText()) );
+			
+			
+			
+			
+			
+			
+			con.setIdUsuario ( Integer.parseInt(jcbIdUsuario.getText()) );
 			
 			if (con.getId() == 0) {
 				nuevoContrato(con);
@@ -271,7 +287,7 @@ public class Principal extends JFrame {
 				jtfSaldo.setText("");
 				jtfLimite.setText("");
 				jcbTipoContrato.setText("");
-				jtfIdUsuario.setText("");				
+				jcbIdUsuario.setText("");				
 			}
 		});
 		panel.add(btnNuevo);
@@ -287,6 +303,8 @@ public class Principal extends JFrame {
 		panel.add(btnEliminar);
 		
 		mostrarContrato();
+		cargarTipoContratoEnComboBox();
+		cargarTipoUsuarioEnComboBox();
 	}
 	
 	private void mostrarContrato() {
@@ -296,11 +314,16 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jtfIdUsuario.setText("" + con.getIdUsuario());
 		//System.out.println(con.getId() + " " + con.getDescripcion());
+/**		
+		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
+			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
+				jcbTipoContrato.setSelectedIndex(i);
+			}
+		}
 		
 	}
-	
+*/	
 	private void mostrarContratoAnterior() {
 		
 		Contrato con = controladorContrato.findAnterior(Integer.parseInt(jtfID.getText()));
@@ -309,7 +332,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jcbTipoContrato.setText("" + con.getIdTipoContrato());
-		jtfIdUsuario.setText("" + con.getIdUsuario());
+		jcbIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
 	
@@ -321,7 +344,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jcbTipoContrato.setText("" + con.getIdTipoContrato());
-		jtfIdUsuario.setText("" + con.getIdUsuario());
+		jcbIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
 	
@@ -333,7 +356,7 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		jcbTipoContrato.setText("" + con.getIdTipoContrato());
-		jtfIdUsuario.setText("" + con.getIdUsuario());
+		jcbIdUsuario.setText("" + con.getIdUsuario());
 		
 	}
 	
@@ -443,6 +466,20 @@ public class Principal extends JFrame {
 		}
 		
 		return -1; 		
+	}
+	
+	private void cargarTipoContratoEnComboBox() {
+		List<TipoContrato> ticon = controladorTipoContrato.findAll();
+		for (TipoContrato tc : ticon) {
+			this.jcbTipoContrato.addItem(tc);
+		}
+	}
+	
+	private void cargarTipoUsuarioEnComboBox() {
+		List<Usuario> u = controladorUsuario.findAll();
+		for (Usuario i : u) {
+			this.jcbIdUsuario.addItem(i);
+		}
 	}
 
 

@@ -1,10 +1,7 @@
 package clasesRecuperacion.controladores;
 
-
-
 import clasesRecuperacion.ConnectionManager;
 import clasesRecuperacion.modelo.Contrato;
-
 
 import java.sql.Statement;
 import java.util.ArrayList;
