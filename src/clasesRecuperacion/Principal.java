@@ -13,6 +13,7 @@ import clasesRecuperacion.controladores.controladorUsuario;
 import clasesRecuperacion.modelo.Contrato;
 import clasesRecuperacion.modelo.TipoContrato;
 import clasesRecuperacion.modelo.Usuario;
+import clasesRecuperacion.vistas.CRUD_Usuario;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -21,6 +22,8 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import java.awt.Insets;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -30,6 +33,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 
 public class Principal extends JFrame {
 
@@ -48,6 +52,7 @@ public class Principal extends JFrame {
 	private JButton btnEliminar;
 	private JComboBox<TipoContrato> jcbTipoContrato;
 	private JComboBox<Usuario> jcbIdUsuario;
+	private JButton btnAbrirUsuario;
 
 	/**
 	 * Launch the application.
@@ -76,9 +81,9 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblNewLabel = new JLabel("id");
@@ -201,12 +206,56 @@ public class Principal extends JFrame {
 		gbc_jcbIdUsuario.gridy = 5;
 		contentPane.add(jcbIdUsuario, gbc_jcbIdUsuario);
 		
+		btnAbrirUsuario = new JButton("abrir usuario");
+		btnAbrirUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Usuario usuario = (Usuario) jcbIdUsuario.getSelectedItem();
+				
+				JDialog dialogo = new JDialog();
+				// El usuario no puede redimensionar el diálogo
+				dialogo.setResizable(true);
+				
+				String titulo = "CRUD USUARIO";
+				
+				// título del díalogo
+				dialogo.setTitle(titulo );
+				// Introducimos el panel creado sobre el diálogo
+				dialogo.setContentPane(new CRUD_Usuario(usuario) );
+				// Empaquetar el di�logo hace que todos los componentes ocupen el espacio que deben y el lugar adecuado
+				dialogo.pack();
+				// El usuario no puede hacer clic sobre la ventana padre, si el Di�logo es modal
+				dialogo.setModal(true);
+				// Centro el di�logo en pantalla
+				dialogo.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width)/2 - dialogo.getWidth()/2, 
+						(Toolkit.getDefaultToolkit().getScreenSize().height)/2 - dialogo.getHeight()/2);
+				// Muestro el di�logo en pantalla
+				dialogo.setVisible(true);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+		});
+		GridBagConstraints gbc_btnAbrirUsuario = new GridBagConstraints();
+		gbc_btnAbrirUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAbrirUsuario.gridx = 0;
+		gbc_btnAbrirUsuario.gridy = 6;
+		contentPane.add(btnAbrirUsuario, gbc_btnAbrirUsuario);
+		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridwidth = 2;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 6;
+		gbc_panel.gridy = 7;
 		contentPane.add(panel, gbc_panel);
 		
 		btnPrimero = new JButton("primero");
