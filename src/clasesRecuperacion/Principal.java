@@ -257,21 +257,21 @@ public class Principal extends JFrame {
 			con.setDescripcion(jtfDescripcion.getText());
 			con.setId ( Integer.parseInt(jtfID.getText() ) );
 			con.setSaldo ( Float.parseFloat(jtfSaldo.getText()) );
-			con.setLimite ( Float.parseFloat(jtfLimite.getText()) );
-			con.setIdTipoContrato ( Integer.parseInt(jcbTipoContrato.getText()) );
+			con.setLimite ( Float.parseFloat(jtfLimite.getText()) );			
 			
+			TipoContrato tipo = (TipoContrato) jcbTipoContrato.getSelectedItem();
+			con.setIdTipoContrato (tipo.getId());	
 			
-			
-			
-			
-			
-			con.setIdUsuario ( Integer.parseInt(jcbIdUsuario.getText()) );
+			Usuario tipoU = (Usuario)jcbIdUsuario.getSelectedItem();
+			con.setIdUsuario ( tipoU.getId() );
 			
 			if (con.getId() == 0) {
 				nuevoContrato(con);
 			}
 			else {
 				modificarContrato(con);
+				
+				//JOptionPane.showMessageDialog(null, "Se ha guardado correctamente el nuevo contrato ");
 			}
 			
 			}
@@ -282,12 +282,17 @@ public class Principal extends JFrame {
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
+				//Contrato con = controladorContrato.findAll();
+				
 				jtfID.setText("0");
 				jtfDescripcion.setText("");
 				jtfSaldo.setText("");
 				jtfLimite.setText("");
-				jcbTipoContrato.setText("");
-				jcbIdUsuario.setText("");				
+				
+				jcbTipoContrato.setSelectedIndex(0)    ;	
+				
+				jcbIdUsuario.setSelectedIndex(0)    ;
+							
 			}
 		});
 		panel.add(btnNuevo);
@@ -315,15 +320,21 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		//System.out.println(con.getId() + " " + con.getDescripcion());
-/**		
+		
 		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
 			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
 				jcbTipoContrato.setSelectedIndex(i);
 			}
 		}
+		for (int i = 0; i < jcbIdUsuario.getItemCount(); i++) {
+			if (jcbIdUsuario.getItemAt(i).getId() == con.getIdUsuario()) {
+				jcbIdUsuario.setSelectedIndex(i);
+			}
+		}
+		
 		
 	}
-*/	
+	
 	private void mostrarContratoAnterior() {
 		
 		Contrato con = controladorContrato.findAnterior(Integer.parseInt(jtfID.getText()));
@@ -331,9 +342,17 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jcbTipoContrato.setText("" + con.getIdTipoContrato());
-		jcbIdUsuario.setText("" + con.getIdUsuario());
 		
+		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
+			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
+				jcbTipoContrato.setSelectedIndex(i);
+			}
+		}
+		for (int i = 0; i < jcbIdUsuario.getItemCount(); i++) {
+			if (jcbIdUsuario.getItemAt(i).getId() == con.getIdUsuario()) {
+				jcbIdUsuario.setSelectedIndex(i);
+			}
+		}
 	}
 	
 	private void mostrarContratoSiguiente() {
@@ -343,9 +362,17 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jcbTipoContrato.setText("" + con.getIdTipoContrato());
-		jcbIdUsuario.setText("" + con.getIdUsuario());
 		
+		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
+			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
+				jcbTipoContrato.setSelectedIndex(i);
+			}
+		}
+		for (int i = 0; i < jcbIdUsuario.getItemCount(); i++) {
+			if (jcbIdUsuario.getItemAt(i).getId() == con.getIdUsuario()) {
+				jcbIdUsuario.setSelectedIndex(i);
+			}
+		}
 	}
 	
 	private void mostrarUltimoContrato() {
@@ -355,9 +382,17 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
-		jcbTipoContrato.setText("" + con.getIdTipoContrato());
-		jcbIdUsuario.setText("" + con.getIdUsuario());
 		
+		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
+			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
+				jcbTipoContrato.setSelectedIndex(i);
+			}
+		}
+		for (int i = 0; i < jcbIdUsuario.getItemCount(); i++) {
+			if (jcbIdUsuario.getItemAt(i).getId() == con.getIdUsuario()) {
+				jcbIdUsuario.setSelectedIndex(i);
+			}
+		}
 	}
 	
 	private void compruebaEstadoBotones() {
@@ -392,9 +427,11 @@ public class Principal extends JFrame {
 	
 	public static int guardarContrato(Contrato con) {
 		if (con.getId() == 0) {
+			
 			return nuevoContrato(con);
 		}
 		else {
+			
 			return modificarContrato(con);
 		}
 	}
@@ -407,6 +444,9 @@ public class Principal extends JFrame {
 			registrosAfectados = s.executeUpdate(
 					"update contrato set descripcion='" + con.getDescripcion() + "', saldo='" + con.getSaldo() + "', limite='" + con.getLimite() + "', idTipoContrato='" + con.getIdTipoContrato() + "', idUsuario='" + con.getIdUsuario() 
 					+ "' " + " where id=" + con.getId());
+			
+			JOptionPane.showMessageDialog(null, "Se ha guardado correctamente la modificacion del contrato ");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -447,6 +487,9 @@ public class Principal extends JFrame {
 			con.setId(siguienteIdEnTabla("contrato"));
 			registrosAfectados = s.executeUpdate(
 						"insert into contrato values (" + con.getId() + ",'" + con.getDescripcion() + "', " + con.getSaldo() + "," + con.getLimite() + " ," + con.getIdTipoContrato() + " ," + con.getIdUsuario() + ")");
+			
+			JOptionPane.showMessageDialog(null, "Se ha guardado correctamente el nuevo contrato ");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
