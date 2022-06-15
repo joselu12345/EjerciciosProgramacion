@@ -3,22 +3,33 @@ package clasesRecuperacion.vistas;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextField;
 
+import clasesRecuperacion.ConnectionManager;
+import clasesRecuperacion.modelo.Contrato;
+import clasesRecuperacion.modelo.TipoContrato;
 import clasesRecuperacion.modelo.Usuario;
 
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
+import javax.swing.JComboBox;
 
 public class CRUD_Usuario extends JPanel {
 	private JTextField tfIdUsuario;
 	private JTextField tfNombreUsuario;
-	private JTextField tfPassword;
 	private JTextField tfEmail;
-	private JTextField tfColorPreferido;
 	Usuario usuario;
-
+	private JPasswordField tfPassword;
+	private JComboBox jcbColorPreferido;
 	/**
 	 * Create the panel.
 	 */
@@ -74,14 +85,14 @@ public class CRUD_Usuario extends JPanel {
 		gbc_lblPassword.gridy = 3;
 		add(lblPassword, gbc_lblPassword);
 		
-		tfPassword = new JTextField(usuario.getPassword());
+		tfPassword = new JPasswordField();
+		tfPassword.setText("password");
 		GridBagConstraints gbc_tfPassword = new GridBagConstraints();
 		gbc_tfPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_tfPassword.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tfPassword.gridx = 2;
 		gbc_tfPassword.gridy = 3;
 		add(tfPassword, gbc_tfPassword);
-		tfPassword.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("eMail");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -108,21 +119,107 @@ public class CRUD_Usuario extends JPanel {
 		gbc_lblColorPreferido.gridy = 5;
 		add(lblColorPreferido, gbc_lblColorPreferido);
 		
-		tfColorPreferido = new JTextField(usuario.getColorPreferido());
-		GridBagConstraints gbc_tfColorPreferido = new GridBagConstraints();
-		gbc_tfColorPreferido.insets = new Insets(0, 0, 5, 0);
-		gbc_tfColorPreferido.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tfColorPreferido.gridx = 2;
-		gbc_tfColorPreferido.gridy = 5;
-		add(tfColorPreferido, gbc_tfColorPreferido);
-		tfColorPreferido.setColumns(10);
-		
 		JButton btnGuardar = new JButton("guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String email = tfEmail.getText();
+				if (! (email.lastIndexOf('.') > 0 && email.lastIndexOf('@') > 0 && 
+						email.lastIndexOf('.') > email.lastIndexOf('@') )) {
+					JOptionPane.showMessageDialog(null, "El email no es válido");
+					return;
+				}
+				
+				String nombreUsuario = tfNombreUsuario.getText();
+				
+				String password = tfPassword.getText();	
+				//String password = new String(tfPassword.getPassword()); //para que getText() no este deprecaso
+ 				
+				if (nombreUsuario.equals("") ||  password.equals("") ) { 
+					JOptionPane.showMessageDialog(null, "El Nombre de usuario y/o la contraseña estan vacios");
+					return;
+				}
+				boolean minuscula = false, mayuscula = false, numero = false;
+				for (int i = 0; i < password.length(); i++) {
+				if (Character.isLowerCase(password.charAt(i))) minuscula = true;
+				else if (Character.isUpperCase(password.charAt(i))) mayuscula = true;
+				else if (Character.isDigit(password.charAt(i))) numero = true;
+				
+				}		
+				
+				if (minuscula == false || mayuscula == false || numero == false) {
+					JOptionPane.showMessageDialog(null, "La contraseña debe contener una letra minuscula, una mayuscula y un numero");
+					return;
+				}
+				
+				Usuario usuario = new Usuario();
+				usuario.setId ( Integer.parseInt(tfIdUsuario.getText() ) );				
+				usuario.setNombreUsuario(tfNombreUsuario.getText());			
+				usuario.setPassword(tfPassword.getText());
+				usuario.setEmail(tfEmail.getText());	
+				//usuario.setColorPreferido(tfColorPreferido.getText());
+				
+				//TipoContrato tipo = (TipoContrato) jcbTipoContrato.getSelectedItem();
+				//con.setIdTipoContrato (tipo.getId());
+				
+				Usuario cp = (Usuario) jcbColorPreferido.getSelectedItem();
+			//	cp.setColorPreferido(cp.getId());
+				
+				modificarUsuario(usuario);				
+			}
+		});
+		
+		jcbColorPreferido = new JComboBox();
+		jcbColorPreferido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		GridBagConstraints gbc_jcbColorPreferido = new GridBagConstraints();
+		gbc_jcbColorPreferido.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbColorPreferido.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jcbColorPreferido.gridx = 2;
+		gbc_jcbColorPreferido.gridy = 5;
+		add(jcbColorPreferido, gbc_jcbColorPreferido);
 		GridBagConstraints gbc_btnGuardar = new GridBagConstraints();
 		gbc_btnGuardar.gridx = 2;
 		gbc_btnGuardar.gridy = 6;
 		add(btnGuardar, gbc_btnGuardar);
+		
+		this.setBackground(Color.decode(usuario.getColorPreferido()));
+		
+		this.usuario.getEmail().lastIndexOf("@");
+		
+		cargarColoresComboBox();
 
 	}
+	
+	public void cargarColoresComboBox() {
+		
+		jcbColorPreferido.addItem("#FF00FF");
+		jcbColorPreferido.addItem("#9890A5");
+		jcbColorPreferido.addItem("#765456");
+		jcbColorPreferido.addItem("#879876");
+		
+	}
+
+	public static int modificarUsuario(Usuario usuario) {		
+		int registrosAfectados = 0;
+		try {
+			Statement s = ConnectionManager.getConexion().createStatement();
+			
+			registrosAfectados = s.executeUpdate(
+					"update usuario set nombreUsuario='" + usuario.getNombreUsuario() + "', password='" + usuario.getPassword() + "', email='" + usuario.getEmail() + "', colorPreferido='" + usuario.getColorPreferido() 
+					+ "' " + " where id=" + usuario.getId());
+			
+			JOptionPane.showMessageDialog(null, "Se ha guardado correctamente la modificacion del usuario ");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return registrosAfectados;		
+	}
+	
+	
 
 }

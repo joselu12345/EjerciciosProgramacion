@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -34,6 +35,7 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JRadioButton;
 
 public class Principal extends JFrame {
 
@@ -53,6 +55,12 @@ public class Principal extends JFrame {
 	private JComboBox<TipoContrato> jcbTipoContrato;
 	private JComboBox<Usuario> jcbIdUsuario;
 	private JButton btnAbrirUsuario;
+	private JRadioButton jrdCuenta;
+	private JRadioButton jrdTarjetaDebito;
+	private JRadioButton jrdTarjetaCredito;
+	private JRadioButton jrdPrestamo;
+	private ButtonGroup bgTipoContrato; // para agrupar los radio button
+	private JLabel lblContratos;
 
 	/**
 	 * Launch the application.
@@ -75,15 +83,15 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 550, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblNewLabel = new JLabel("id");
@@ -158,12 +166,56 @@ public class Principal extends JFrame {
 		contentPane.add(jtfLimite, gbc_jtfLimite);
 		jtfLimite.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("id tipo contrato");
+		bgTipoContrato = new ButtonGroup(); // agrupar los radio button
+		jrdCuenta = new JRadioButton("cuenta");
+		GridBagConstraints gbc_jrdCuenta = new GridBagConstraints();
+		gbc_jrdCuenta.anchor = GridBagConstraints.WEST;
+		gbc_jrdCuenta.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdCuenta.gridx = 1;
+		gbc_jrdCuenta.gridy = 4;
+		bgTipoContrato.add(jrdCuenta);
+		contentPane.add(jrdCuenta, gbc_jrdCuenta);
+		
+		lblContratos = new JLabel("contratos");
+		GridBagConstraints gbc_lblContratos = new GridBagConstraints();
+		gbc_lblContratos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblContratos.gridx = 0;
+		gbc_lblContratos.gridy = 5;
+		contentPane.add(lblContratos, gbc_lblContratos);
+		
+		jrdTarjetaDebito = new JRadioButton("tarjeta debito");
+		GridBagConstraints gbc_jrdTarjetaDebito = new GridBagConstraints();
+		gbc_jrdTarjetaDebito.anchor = GridBagConstraints.WEST;
+		gbc_jrdTarjetaDebito.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdTarjetaDebito.gridx = 1;
+		gbc_jrdTarjetaDebito.gridy = 5;
+		bgTipoContrato.add(jrdTarjetaDebito);
+		contentPane.add(jrdTarjetaDebito, gbc_jrdTarjetaDebito);
+		
+		jrdTarjetaCredito = new JRadioButton("tarjeta credito");
+		GridBagConstraints gbc_jrdTarjetaCredito = new GridBagConstraints();
+		gbc_jrdTarjetaCredito.anchor = GridBagConstraints.WEST;
+		gbc_jrdTarjetaCredito.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdTarjetaCredito.gridx = 1;
+		gbc_jrdTarjetaCredito.gridy = 6;
+		bgTipoContrato.add(jrdTarjetaCredito);
+		contentPane.add(jrdTarjetaCredito, gbc_jrdTarjetaCredito);
+		
+		jrdPrestamo = new JRadioButton("prestamo");
+		GridBagConstraints gbc_jrdPrestamo = new GridBagConstraints();
+		gbc_jrdPrestamo.anchor = GridBagConstraints.WEST;
+		gbc_jrdPrestamo.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdPrestamo.gridx = 1;
+		gbc_jrdPrestamo.gridy = 7;
+		bgTipoContrato.add(jrdPrestamo);
+		contentPane.add(jrdPrestamo, gbc_jrdPrestamo);
+		
+		JLabel lblNewLabel_4 = new JLabel("tipo contrato");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_4.gridx = 0;
-		gbc_lblNewLabel_4.gridy = 4;
+		gbc_lblNewLabel_4.gridy = 9;
 		contentPane.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		jcbTipoContrato = new JComboBox<TipoContrato>();
@@ -180,15 +232,15 @@ public class Principal extends JFrame {
 		gbc_jcbTipoContrato.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbTipoContrato.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbTipoContrato.gridx = 1;
-		gbc_jcbTipoContrato.gridy = 4;
+		gbc_jcbTipoContrato.gridy = 9;
 		contentPane.add(jcbTipoContrato, gbc_jcbTipoContrato);
 		
-		JLabel lblNewLabel_5 = new JLabel("id usuario");
+		JLabel lblNewLabel_5 = new JLabel("usuario");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
 		gbc_lblNewLabel_5.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel_5.gridx = 0;
-		gbc_lblNewLabel_5.gridy = 5;
+		gbc_lblNewLabel_5.gridy = 10;
 		contentPane.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		jcbIdUsuario = new JComboBox<Usuario>();
@@ -203,7 +255,7 @@ public class Principal extends JFrame {
 		gbc_jcbIdUsuario.insets = new Insets(0, 0, 5, 0);
 		gbc_jcbIdUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbIdUsuario.gridx = 1;
-		gbc_jcbIdUsuario.gridy = 5;
+		gbc_jcbIdUsuario.gridy = 10;
 		contentPane.add(jcbIdUsuario, gbc_jcbIdUsuario);
 		
 		btnAbrirUsuario = new JButton("abrir usuario");
@@ -247,7 +299,7 @@ public class Principal extends JFrame {
 		GridBagConstraints gbc_btnAbrirUsuario = new GridBagConstraints();
 		gbc_btnAbrirUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAbrirUsuario.gridx = 0;
-		gbc_btnAbrirUsuario.gridy = 6;
+		gbc_btnAbrirUsuario.gridy = 11;
 		contentPane.add(btnAbrirUsuario, gbc_btnAbrirUsuario);
 		
 		panel = new JPanel();
@@ -255,7 +307,7 @@ public class Principal extends JFrame {
 		gbc_panel.gridwidth = 2;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
-		gbc_panel.gridy = 7;
+		gbc_panel.gridy = 12;
 		contentPane.add(panel, gbc_panel);
 		
 		btnPrimero = new JButton("primero");
@@ -304,6 +356,12 @@ public class Principal extends JFrame {
 				
 			Contrato con = new Contrato();
 			con.setDescripcion(jtfDescripcion.getText());
+			
+			if (jtfDescripcion.getText().length() < 4) {
+				JOptionPane.showMessageDialog(null, "La descripcion debe tener al menos 4 caracteres");
+				return;
+			}
+			
 			con.setId ( Integer.parseInt(jtfID.getText() ) );
 			con.setSaldo ( Float.parseFloat(jtfSaldo.getText()) );
 			con.setLimite ( Float.parseFloat(jtfLimite.getText()) );			
@@ -320,7 +378,6 @@ public class Principal extends JFrame {
 			else {
 				modificarContrato(con);
 				
-				//JOptionPane.showMessageDialog(null, "Se ha guardado correctamente el nuevo contrato ");
 			}
 			
 			}
@@ -370,6 +427,20 @@ public class Principal extends JFrame {
 		jtfLimite.setText("" + con.getLimite());
 		//System.out.println(con.getId() + " " + con.getDescripcion());
 		
+		if(con.getIdTipoContrato() == 1){
+			jrdCuenta.setSelected(true);		
+		}
+		else if (con.getIdTipoContrato() == 2) {
+			jrdTarjetaDebito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 3) {
+			jrdTarjetaCredito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 4) {
+			jrdPrestamo.setSelected(true);
+		}
+		
+		
 		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
 			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
 				jcbTipoContrato.setSelectedIndex(i);
@@ -392,6 +463,19 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		
+		if(con.getIdTipoContrato() == 1){
+			jrdCuenta.setSelected(true);		
+		}
+		else if (con.getIdTipoContrato() == 2) {
+			jrdTarjetaDebito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 3) {
+			jrdTarjetaCredito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 4) {
+			jrdPrestamo.setSelected(true);
+		}
+		
 		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
 			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
 				jcbTipoContrato.setSelectedIndex(i);
@@ -412,6 +496,19 @@ public class Principal extends JFrame {
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
 		
+		if(con.getIdTipoContrato() == 1){
+			jrdCuenta.setSelected(true);		
+		}
+		else if (con.getIdTipoContrato() == 2) {
+			jrdTarjetaDebito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 3) {
+			jrdTarjetaCredito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 4) {
+			jrdPrestamo.setSelected(true);
+		}
+		
 		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
 			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
 				jcbTipoContrato.setSelectedIndex(i);
@@ -431,6 +528,19 @@ public class Principal extends JFrame {
 		jtfDescripcion.setText("" + con.getDescripcion());
 		jtfSaldo.setText("" + con.getSaldo());
 		jtfLimite.setText("" + con.getLimite());
+		
+		if(con.getIdTipoContrato() == 1){
+			jrdCuenta.setSelected(true);		
+		}
+		else if (con.getIdTipoContrato() == 2) {
+			jrdTarjetaDebito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 3) {
+			jrdTarjetaCredito.setSelected(true);
+		}
+		else if (con.getIdTipoContrato() == 4) {
+			jrdPrestamo.setSelected(true);
+		}
 		
 		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
 			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
