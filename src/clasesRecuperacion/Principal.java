@@ -36,6 +36,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 
 public class Principal extends JFrame {
 
@@ -61,6 +62,8 @@ public class Principal extends JFrame {
 	private JRadioButton jrdPrestamo;
 	private ButtonGroup bgTipoContrato; // para agrupar los radio button
 	private JLabel lblContratos;
+	private JScrollPane scrollPane;
+	private JButton btnCambiarImagen;
 
 	/**
 	 * Launch the application.
@@ -88,10 +91,10 @@ public class Principal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JLabel lblNewLabel = new JLabel("id");
@@ -104,7 +107,7 @@ public class Principal extends JFrame {
 		
 		jtfID = new JTextField();
 		GridBagConstraints gbc_jtfID = new GridBagConstraints();
-		gbc_jtfID.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfID.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfID.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfID.gridx = 1;
 		gbc_jtfID.gridy = 0;
@@ -125,7 +128,7 @@ public class Principal extends JFrame {
 		
 		jtfDescripcion = new JTextField();
 		GridBagConstraints gbc_jtfDescripcion = new GridBagConstraints();
-		gbc_jtfDescripcion.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfDescripcion.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfDescripcion.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfDescripcion.gridx = 1;
 		gbc_jtfDescripcion.gridy = 1;
@@ -142,7 +145,7 @@ public class Principal extends JFrame {
 		
 		jtfSaldo = new JTextField();
 		GridBagConstraints gbc_jtfSaldo = new GridBagConstraints();
-		gbc_jtfSaldo.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfSaldo.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfSaldo.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfSaldo.gridx = 1;
 		gbc_jtfSaldo.gridy = 2;
@@ -159,7 +162,7 @@ public class Principal extends JFrame {
 		
 		jtfLimite = new JTextField();
 		GridBagConstraints gbc_jtfLimite = new GridBagConstraints();
-		gbc_jtfLimite.insets = new Insets(0, 0, 5, 0);
+		gbc_jtfLimite.insets = new Insets(0, 0, 5, 5);
 		gbc_jtfLimite.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jtfLimite.gridx = 1;
 		gbc_jtfLimite.gridy = 3;
@@ -170,7 +173,7 @@ public class Principal extends JFrame {
 		jrdCuenta = new JRadioButton("cuenta");
 		GridBagConstraints gbc_jrdCuenta = new GridBagConstraints();
 		gbc_jrdCuenta.anchor = GridBagConstraints.WEST;
-		gbc_jrdCuenta.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdCuenta.insets = new Insets(0, 0, 5, 5);
 		gbc_jrdCuenta.gridx = 1;
 		gbc_jrdCuenta.gridy = 4;
 		bgTipoContrato.add(jrdCuenta);
@@ -186,7 +189,7 @@ public class Principal extends JFrame {
 		jrdTarjetaDebito = new JRadioButton("tarjeta debito");
 		GridBagConstraints gbc_jrdTarjetaDebito = new GridBagConstraints();
 		gbc_jrdTarjetaDebito.anchor = GridBagConstraints.WEST;
-		gbc_jrdTarjetaDebito.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdTarjetaDebito.insets = new Insets(0, 0, 5, 5);
 		gbc_jrdTarjetaDebito.gridx = 1;
 		gbc_jrdTarjetaDebito.gridy = 5;
 		bgTipoContrato.add(jrdTarjetaDebito);
@@ -195,7 +198,7 @@ public class Principal extends JFrame {
 		jrdTarjetaCredito = new JRadioButton("tarjeta credito");
 		GridBagConstraints gbc_jrdTarjetaCredito = new GridBagConstraints();
 		gbc_jrdTarjetaCredito.anchor = GridBagConstraints.WEST;
-		gbc_jrdTarjetaCredito.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdTarjetaCredito.insets = new Insets(0, 0, 5, 5);
 		gbc_jrdTarjetaCredito.gridx = 1;
 		gbc_jrdTarjetaCredito.gridy = 6;
 		bgTipoContrato.add(jrdTarjetaCredito);
@@ -204,11 +207,20 @@ public class Principal extends JFrame {
 		jrdPrestamo = new JRadioButton("prestamo");
 		GridBagConstraints gbc_jrdPrestamo = new GridBagConstraints();
 		gbc_jrdPrestamo.anchor = GridBagConstraints.WEST;
-		gbc_jrdPrestamo.insets = new Insets(0, 0, 5, 0);
+		gbc_jrdPrestamo.insets = new Insets(0, 0, 5, 5);
 		gbc_jrdPrestamo.gridx = 1;
 		gbc_jrdPrestamo.gridy = 7;
 		bgTipoContrato.add(jrdPrestamo);
 		contentPane.add(jrdPrestamo, gbc_jrdPrestamo);
+		
+		scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.gridheight = 4;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.gridy = 5;
+		contentPane.add(scrollPane, gbc_scrollPane);
 		
 		JLabel lblNewLabel_4 = new JLabel("tipo contrato");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -229,11 +241,18 @@ public class Principal extends JFrame {
 		
 		
 		GridBagConstraints gbc_jcbTipoContrato = new GridBagConstraints();
-		gbc_jcbTipoContrato.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbTipoContrato.insets = new Insets(0, 0, 5, 5);
 		gbc_jcbTipoContrato.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbTipoContrato.gridx = 1;
 		gbc_jcbTipoContrato.gridy = 9;
 		contentPane.add(jcbTipoContrato, gbc_jcbTipoContrato);
+		
+		btnCambiarImagen = new JButton("cambiar imagen");
+		GridBagConstraints gbc_btnCambiarImagen = new GridBagConstraints();
+		gbc_btnCambiarImagen.insets = new Insets(0, 0, 5, 0);
+		gbc_btnCambiarImagen.gridx = 2;
+		gbc_btnCambiarImagen.gridy = 9;
+		contentPane.add(btnCambiarImagen, gbc_btnCambiarImagen);
 		
 		JLabel lblNewLabel_5 = new JLabel("usuario");
 		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
@@ -252,7 +271,7 @@ public class Principal extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_jcbIdUsuario = new GridBagConstraints();
-		gbc_jcbIdUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_jcbIdUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_jcbIdUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jcbIdUsuario.gridx = 1;
 		gbc_jcbIdUsuario.gridy = 10;
@@ -304,6 +323,7 @@ public class Principal extends JFrame {
 		
 		panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 0, 5);
 		gbc_panel.gridwidth = 2;
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 0;
@@ -440,12 +460,13 @@ public class Principal extends JFrame {
 			jrdPrestamo.setSelected(true);
 		}
 		
-		
+		//para que en el comboBox se muestre el tipo de contrato de cada usuario
 		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
 			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
 				jcbTipoContrato.setSelectedIndex(i);
 			}
 		}
+		//para que en el comboBox se muestre el nombre de cada usuario
 		for (int i = 0; i < jcbIdUsuario.getItemCount(); i++) {
 			if (jcbIdUsuario.getItemAt(i).getId() == con.getIdUsuario()) {
 				jcbIdUsuario.setSelectedIndex(i);

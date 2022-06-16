@@ -162,9 +162,9 @@ public class CRUD_Usuario extends JPanel {
 				//TipoContrato tipo = (TipoContrato) jcbTipoContrato.getSelectedItem();
 				//con.setIdTipoContrato (tipo.getId());
 				
-				Usuario cp = (Usuario) jcbColorPreferido.getSelectedItem();
-			//	cp.setColorPreferido(cp.getId());
-				
+				usuario.setColorPreferido((String) jcbColorPreferido.getSelectedItem());
+				//usuario.setId(cp.getId());
+							
 				modificarUsuario(usuario);				
 			}
 		});
@@ -190,6 +190,19 @@ public class CRUD_Usuario extends JPanel {
 		this.usuario.getEmail().lastIndexOf("@");
 		
 		cargarColoresComboBox();
+		
+		//para que en el comboBox se muestre el color preferido de cada usuario al abrirlo
+		for (int i = 0; i < jcbColorPreferido.getItemCount(); i++) {      // para los String se utiliza equals
+			if (jcbColorPreferido.getItemAt(i).equals(usuario.getColorPreferido())) {
+				jcbColorPreferido.setSelectedIndex(i);
+			}
+		}
+		
+//		for (int i = 0; i < jcbTipoContrato.getItemCount(); i++) {
+//			if (jcbTipoContrato.getItemAt(i).getId() == con.getIdTipoContrato()) {
+//				jcbTipoContrato.setSelectedIndex(i);
+//			}
+//		}
 
 	}
 	
