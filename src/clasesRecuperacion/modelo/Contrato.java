@@ -1,5 +1,7 @@
 package clasesRecuperacion.modelo;
 
+import java.util.Arrays;
+
 public class Contrato {
 	
 	private int id;
@@ -8,18 +10,20 @@ public class Contrato {
 	private float limite;
 	private int idTipoContrato;
 	private int idUsuario;
+	private byte[] documento;
 	
 	public Contrato() {
 	}
 
 	public Contrato(int id, String descripcion, float saldo, float limite, int idTipoContrato,
-			int idUsuario) {
+			int idUsuario, byte[] documento) {
 		this.id = id;
 		this.descripcion = descripcion;
 		this.saldo = saldo;
 		this.limite = limite;
 		this.idTipoContrato = idTipoContrato;
 		this.idUsuario = idUsuario;
+		this.documento = documento;
 	}
 
 	public int getId() {
@@ -69,12 +73,21 @@ public class Contrato {
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+	
+
+	public byte[] getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(byte[] documento) {
+		this.documento = documento;
+	}
 
 	@Override
 	public String toString() {
 		return "Contrato [id=" + id + ", descripcion=" + descripcion + ", saldo=" + saldo + ", limite=" + limite
-				+ ", idTipoContrato=" + idTipoContrato + ", idUsuario=" + idUsuario
-				+ "]";
+				+ ", idTipoContrato=" + idTipoContrato + ", idUsuario=" + idUsuario + ", documento="
+				+ Arrays.toString(documento) + "]";
 	}
 	
 	

@@ -52,7 +52,7 @@ public class controladorContrato {
 		
 		while (rs.next()) {
 			
-			con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"));
+			con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"), rs.getBytes("documento"));
 			
 		}
 		
@@ -81,7 +81,7 @@ public class controladorContrato {
 			
 			while (rs.next()) {
 				
-				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"));
+				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"), rs.getBytes("documento"));
 				
 			}
 			
@@ -110,7 +110,7 @@ public class controladorContrato {
 			
 			while (rs.next()) {
 				
-				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"));
+				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"), rs.getBytes("documento"));
 				
 			}
 			
@@ -139,7 +139,7 @@ public class controladorContrato {
 			
 			while (rs.next()) {
 				
-				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"));
+				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"), rs.getBytes("documento"));
 				
 			}
 			
@@ -170,7 +170,7 @@ public class controladorContrato {
 			
 			while (rs.next()) {
 				
-				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"));
+				con = new Contrato(rs.getInt("id"), rs.getString("descripcion"), rs.getFloat("saldo"), rs.getFloat("limite"), rs.getInt("idTipoContrato"), rs.getInt("idUsuario"), rs.getBytes("documento"));
 				lista.add(con);
 			}
 			

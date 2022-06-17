@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
 
 import clasesRecuperacion.controladores.controladorContrato;
 import clasesRecuperacion.controladores.controladorTipoContrato;
@@ -25,8 +26,11 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,6 +39,7 @@ import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
@@ -62,7 +67,9 @@ public class Principal extends JFrame {
 	private JRadioButton jrdPrestamo;
 	private ButtonGroup bgTipoContrato; // para agrupar los radio button
 	private JLabel lblContratos;
-	private JScrollPane scrollPane;
+	
+	private byte[] documentoEnBytes = null;
+	private JScrollPane spCuadroImagen;
 	private JButton btnCambiarImagen;
 
 	/**
@@ -86,7 +93,7 @@ public class Principal extends JFrame {
 	 */
 	public Principal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 400);
+		setBounds(100, 100, 550, 420);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -213,14 +220,14 @@ public class Principal extends JFrame {
 		bgTipoContrato.add(jrdPrestamo);
 		contentPane.add(jrdPrestamo, gbc_jrdPrestamo);
 		
-		scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.gridheight = 4;
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 2;
-		gbc_scrollPane.gridy = 5;
-		contentPane.add(scrollPane, gbc_scrollPane);
+		spCuadroImagen = new JScrollPane();
+		GridBagConstraints gbc_spCuadroImagen = new GridBagConstraints();
+		gbc_spCuadroImagen.gridheight = 5;
+		gbc_spCuadroImagen.insets = new Insets(0, 0, 5, 0);
+		gbc_spCuadroImagen.fill = GridBagConstraints.BOTH;
+		gbc_spCuadroImagen.gridx = 2;
+		gbc_spCuadroImagen.gridy = 4;
+		contentPane.add(spCuadroImagen, gbc_spCuadroImagen);
 		
 		JLabel lblNewLabel_4 = new JLabel("tipo contrato");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
@@ -247,7 +254,14 @@ public class Principal extends JFrame {
 		gbc_jcbTipoContrato.gridy = 9;
 		contentPane.add(jcbTipoContrato, gbc_jcbTipoContrato);
 		
-		btnCambiarImagen = new JButton("cambiar imagen");
+		btnCambiarImagen = new JButton("seleccionar imagen");
+		btnCambiarImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				seleccionarFicheroImagen();
+				
+			}
+		});
 		GridBagConstraints gbc_btnCambiarImagen = new GridBagConstraints();
 		gbc_btnCambiarImagen.insets = new Insets(0, 0, 5, 0);
 		gbc_btnCambiarImagen.gridx = 2;
@@ -392,6 +406,8 @@ public class Principal extends JFrame {
 			Usuario tipoU = (Usuario)jcbIdUsuario.getSelectedItem();
 			con.setIdUsuario ( tipoU.getId() );
 			
+//			con.setDocumento(documentoEnBytes);     /////////////////////////////////////
+			
 			if (con.getId() == 0) {
 				nuevoContrato(con);
 			}
@@ -399,7 +415,7 @@ public class Principal extends JFrame {
 				modificarContrato(con);
 				
 			}
-			
+		
 			}
 		});
 		panel.add(btnModificar);
@@ -418,6 +434,8 @@ public class Principal extends JFrame {
 				jcbTipoContrato.setSelectedIndex(0)    ;	
 				
 				jcbIdUsuario.setSelectedIndex(0)    ;
+				
+//				spCuadroImagen.setDocumento();     /////////////////////////////////////////
 							
 			}
 		});
@@ -622,7 +640,7 @@ public class Principal extends JFrame {
 			Statement s = ConnectionManager.getConexion().createStatement();
 			
 			registrosAfectados = s.executeUpdate(
-					"update contrato set descripcion='" + con.getDescripcion() + "', saldo='" + con.getSaldo() + "', limite='" + con.getLimite() + "', idTipoContrato='" + con.getIdTipoContrato() + "', idUsuario='" + con.getIdUsuario() 
+					"update contrato set descripcion='" + con.getDescripcion() + "', saldo='" + con.getSaldo() + "', limite='" + con.getLimite() + "', idTipoContrato='" + con.getIdTipoContrato() + "', idUsuario='" + con.getIdUsuario() + "', documento='" + con.getDocumento() 
 					+ "' " + " where id=" + con.getId());
 			
 			JOptionPane.showMessageDialog(null, "Se ha guardado correctamente la modificacion del contrato ");
@@ -666,7 +684,7 @@ public class Principal extends JFrame {
 			Statement s = ConnectionManager.getConexion().createStatement();
 			con.setId(siguienteIdEnTabla("contrato"));
 			registrosAfectados = s.executeUpdate(
-						"insert into contrato values (" + con.getId() + ",'" + con.getDescripcion() + "', " + con.getSaldo() + "," + con.getLimite() + " ," + con.getIdTipoContrato() + " ," + con.getIdUsuario() + ")");
+						"insert into contrato values (" + con.getId() + ",'" + con.getDescripcion() + "', " + con.getSaldo() + "," + con.getLimite() + " ," + con.getIdTipoContrato() + " ," + con.getIdUsuario() + " ," + con.getDocumento() + ")");
 			
 			JOptionPane.showMessageDialog(null, "Se ha guardado correctamente el nuevo contrato ");
 			
@@ -704,6 +722,69 @@ public class Principal extends JFrame {
 			this.jcbIdUsuario.addItem(i);
 		}
 	}
+	
+	private void seleccionarFicheroImagen() {
+		JFileChooser jfileChooser = new JFileChooser();
+		
+		// Configurando el componente
+		
+		// Tipo de selección que se hace en el diálogo
+		jfileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); // Sólo selecciona ficheros
+
+		// Filtro del tipo de ficheros que puede abrir
+		jfileChooser.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return "Archivos de imagen *.jpg *.png *.gif";
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				if (f.isDirectory() || (f.isFile() &&
+						(f.getAbsolutePath().endsWith(".jpg") || 
+								f.getAbsolutePath().endsWith(".jpeg")|| 
+								f.getAbsolutePath().endsWith(".png")|| 
+								f.getAbsolutePath().endsWith(".gif"))))
+					return true;
+				return false;
+			}
+		});
+		
+		// Abro el diálogo para la elección del usuario
+		int seleccionUsuario = jfileChooser.showOpenDialog(null);
+		
+		if (seleccionUsuario == JFileChooser.APPROVE_OPTION) {
+			File fichero = jfileChooser.getSelectedFile();
+			
+			if (fichero.isFile()) {
+				try {
+					setImagen(Files.readAllBytes(fichero.toPath()));
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	
+	
+	public void setImagen (byte[] newimagen) {
+		this.documentoEnBytes = newimagen;
+		if (newimagen != null && newimagen.length > 0) {
+			ImageIcon icono = new ImageIcon(newimagen);
+			JLabel lblIcono = new JLabel(icono);
+			this.spCuadroImagen.setViewportView(lblIcono);
+		}
+		else {
+			JLabel lblIcono = new JLabel("Sin imagen");
+			this.spCuadroImagen.setViewportView(lblIcono);
+		}
+
+	}
+
+	
 
 
 }
