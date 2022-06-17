@@ -31,6 +31,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.file.Files;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -406,7 +407,7 @@ public class Principal extends JFrame {
 			Usuario tipoU = (Usuario)jcbIdUsuario.getSelectedItem();
 			con.setIdUsuario ( tipoU.getId() );
 			
-//			con.setDocumento(documentoEnBytes);     /////////////////////////////////////
+			con.setDocumento(documentoEnBytes);     /////////////////////////////////////
 			
 			if (con.getId() == 0) {
 				nuevoContrato(con);
@@ -435,7 +436,7 @@ public class Principal extends JFrame {
 				
 				jcbIdUsuario.setSelectedIndex(0)    ;
 				
-//				spCuadroImagen.setDocumento();     /////////////////////////////////////////
+//				con.setDocumento(documentoEnBytes);      ////////////////////////////////////
 							
 			}
 		});
@@ -455,6 +456,8 @@ public class Principal extends JFrame {
 		cargarTipoContratoEnComboBox();
 		cargarTipoUsuarioEnComboBox();
 	}
+	
+	////////////////////////////////////// aqui termina Principal() constructor	
 	
 	private void mostrarContrato() {
 		
@@ -490,6 +493,8 @@ public class Principal extends JFrame {
 				jcbIdUsuario.setSelectedIndex(i);
 			}
 		}
+		
+		setImagen(con.getDocumento()); ////////////////////////////////////
 		
 		
 	}
@@ -637,11 +642,18 @@ public class Principal extends JFrame {
 	public static int modificarContrato(Contrato con) {		
 		int registrosAfectados = 0;
 		try {
-			Statement s = ConnectionManager.getConexion().createStatement();
+			PreparedStatement ps = ConnectionManager.getConexion().prepareStatement("update contrato set descripcion=?, saldo=?, "
+					+ "limite=?, idTipoContrato=?, idUsuario=?, documento=? where id=?");
 			
-			registrosAfectados = s.executeUpdate(
-					"update contrato set descripcion='" + con.getDescripcion() + "', saldo='" + con.getSaldo() + "', limite='" + con.getLimite() + "', idTipoContrato='" + con.getIdTipoContrato() + "', idUsuario='" + con.getIdUsuario() + "', documento='" + con.getDocumento() 
-					+ "' " + " where id=" + con.getId());
+			ps.setString(1, con.getDescripcion());
+			ps.setFloat(2, con.getSaldo());
+			ps.setFloat(3, con.getLimite());
+			ps.setInt(4, con.getIdTipoContrato());
+			ps.setInt(5, con.getIdTipoContrato());
+			ps.setBytes(6, con.getDocumento());
+			ps.setInt(7, con.getId());
+			
+			registrosAfectados = ps.executeUpdate();
 			
 			JOptionPane.showMessageDialog(null, "Se ha guardado correctamente la modificacion del contrato ");
 			
